@@ -32,4 +32,6 @@ void stopTimer();
 
 float elapsedTimeTempSensor;
 
+void timer_WaitUs(uint8_t uDelay);
+
 #endif /* TIME_UTILS_H_ */

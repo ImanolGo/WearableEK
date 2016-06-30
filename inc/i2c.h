@@ -15,6 +15,8 @@
 #include "em_i2c.h"
 #include "em_gpio.h"
 
+#define I2C_TRANSFER_TIMEOUT 300000
+
 typedef struct
 {
   /**

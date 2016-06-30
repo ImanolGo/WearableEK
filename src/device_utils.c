@@ -12,6 +12,7 @@
 #include "stc3105.h"
 #include "stc3115.h"
 #include "device_utils.h"
+#include "time_utils.h"
 #include "gpiosManager.h"
 #include "i2c.h"
 #include "adp8866.h"

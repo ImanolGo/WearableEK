@@ -32,9 +32,10 @@ void gpioCallback(uint8_t pin)
 		switchPressed = false;
 		switchTogglePower();
 
-		if((msTicks - switchTicks)> switchBatteryDelay)
+		if((msTicks - switchTicks)> SWITCH_RESTART_DELAY)
 		{
-			showBatteryVoltage();
+			startDevice();
+			//showBatteryVoltage();
 		}
 
 	}
@@ -89,7 +90,7 @@ void updateColor()
 		currentColor.h = 0;
 	}
 
-	currentColor.v = getNoise128(noiseTimer);
+	//currentColor.v = getNoise128(noiseTimer);
 
 	RGB colorRGB = hsv2rgb(currentColor);
 	adp8866_set_led_rgb(LED_ID, &colorRGB);
@@ -100,7 +101,7 @@ void initGpios()
 {
 	/* Init variables */
 	s100On = false;
-	currentColor.h = 0; currentColor.s = 100; currentColor.v = 127;
+	currentColor.h = 0; currentColor.s = 0; currentColor.v = 127;
 
 	/* Enable GPIO in CMU */
 	CMU_ClockEnable(cmuClock_GPIO, true);
@@ -112,7 +113,7 @@ void initGpios()
 	GPIO_PinModeSet(gpioPortC, SWITCH_PIN, gpioModeInput, 0); //Switch
 
 	GPIO_PinModeSet(gpioPortE, BATTERY_CHG_PIN, gpioModeInput, 1);  //BQ51050B CHG
-	GPIO_PinModeSet(gpioPortE, BQ51050B_TS_CTRL_PIN, gpioModeWiredAnd, 1);  //BQ51050B TS/CTRL open drain output
+	GPIO_PinModeSet(gpioPortE, BQ51050B_CTRL_PIN, gpioModeWiredAnd, 1);  //BQ51050B CTRL open drain output
 
 	GPIO_PinModeSet(gpioPortD, ADP_INT_PIN, gpioModeInput, 1);  //ADP8866 nINT - Active Low
 	GPIO_PinModeSet(gpioPortD, MPU_INT_PIN, gpioModeInput, 1);  //MPU9250 nINT - Active Low
@@ -139,7 +140,6 @@ void initGpios()
 	switchElapsedTime = 1000; //elapsed time in ms
 	switchTicks = msTicks;
 	switchOnOffDelay = 50;
-	switchBatteryDelay = 5000;
 	switchPressed = false;
 	noiseTimer = 0.0;
 }

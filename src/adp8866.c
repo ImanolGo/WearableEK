@@ -35,7 +35,7 @@ bool adp8866_initLevels(void)
 	// Maximum current of ~21mA.
 	// All LED outputs are set with the level bits.
 
-	uint8_t i2c_write_data = 0b01000100;
+	uint8_t i2c_write_data = 0b01000000;
 	bool completed = writeI2C_1Byte(ADP8866_I2CADDR,  ADP8866_LVL_SEL_1,  i2c_write_data);
 
 	i2c_write_data = 0xFF;

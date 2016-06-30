@@ -51,6 +51,7 @@ src/device_utils.o: ../src/device_utils.c \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/stc3105.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/stc3115.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/device_utils.h \
+ /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/time_utils.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/gpiosManager.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/adp8866.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/i2c.h \
@@ -160,6 +161,8 @@ src/device_utils.o: ../src/device_utils.c \
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/stc3115.h:
 
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/device_utils.h:
+
+/Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/time_utils.h:
 
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/gpiosManager.h:
 

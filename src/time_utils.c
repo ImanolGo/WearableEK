@@ -134,3 +134,30 @@ void stopTimer()
 	/* Disable TIMER0 interrupt vector in NVIC */
 	NVIC_DisableIRQ(TIMER0_IRQn);
 }
+
+
+void timer_WaitUs(uint8_t uDelay) {
+
+  /* adjustment factor for 14MHz oscillator, based on the timing of this whole function with speed optimization on, could probably be done in a prettier way. */
+
+  uint16_t cycle_delay = uDelay * 14 - 28;
+
+  /* Reset Timer */
+
+  TIMER_CounterSet(TIMER0, 0);
+
+  /* Start TIMER0 */
+
+  TIMER0->CMD = TIMER_CMD_START;
+
+  /* Wait until counter value is over top */
+
+  while(TIMER0->CNT < cycle_delay){
+
+  /* Do nothing, just wait */
+
+  }
+
+  TIMER0->CMD = TIMER_CMD_STOP;
+
+}

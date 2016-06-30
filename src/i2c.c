@@ -113,11 +113,12 @@ void testI2C()
 bool processI2C(I2C_TransferSeq_TypeDef* i2cTransfer)
 {
 
+  uint32_t timeout = I2C_TRANSFER_TIMEOUT;
   I2C_TransferReturn_TypeDef ret = I2C_TransferInit(I2C0, i2cTransfer);
 
   /* Sending data */
   ret = I2C_Transfer(I2C0);
-  while (ret == i2cTransferInProgress)
+  while (ret == i2cTransferInProgress && timeout--)
 	  ret = I2C_Transfer(I2C0);
 
 
