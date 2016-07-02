@@ -1,10 +1,11 @@
 src/i2c.o: ../src/i2c.c \
- /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/device_utils.h \
+ /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/time_utils.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/stc3105.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/stc3115.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/si7021.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/mpu9250.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/adp8866.h \
+ /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/device_utils.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/i2c.h \
  /Applications/SimplicityStudio_v3/developer/sdks/efm32/v2/emlib/inc/em_i2c.h \
  /Applications/SimplicityStudio_v3/developer/sdks/efm32/v2/Device/SiliconLabs/EFM32TG/Include/em_device.h \
@@ -56,7 +57,7 @@ src/i2c.o: ../src/i2c.c \
  /Applications/SimplicityStudio_v3/developer/sdks/efm32/v2/emlib/inc/em_bus.h \
  /Applications/SimplicityStudio_v3/developer/sdks/efm32/v2/emlib/inc/em_assert.h
 
-/Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/device_utils.h:
+/Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/time_utils.h:
 
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/stc3105.h:
 
@@ -67,6 +68,8 @@ src/i2c.o: ../src/i2c.c \
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/mpu9250.h:
 
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/adp8866.h:
+
+/Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/device_utils.h:
 
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/i2c.h:
 

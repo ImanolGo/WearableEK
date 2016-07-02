@@ -36,12 +36,14 @@ bool adp8866_initLevels(void)
 	// All LED outputs are set with the level bits.
 
 	uint8_t i2c_write_data = 0b01000000;
+	//uint8_t i2c_write_data = 0b0111110;
 	bool completed = writeI2C_1Byte(ADP8866_I2CADDR,  ADP8866_LVL_SEL_1,  i2c_write_data);
 
 	i2c_write_data = 0xFF;
 	completed = completed && writeI2C_1Byte(ADP8866_I2CADDR,  ADP8866_LVL_SEL_2,  i2c_write_data);
 
-	i2c_write_data = 0b00000100;
+	//i2c_write_data = 0b00000100;
+	i2c_write_data = 0b00000000;
 	completed = completed && writeI2C_1Byte(ADP8866_I2CADDR,  ADP8866_GAIN_SEL,  i2c_write_data);
 
 	return completed;

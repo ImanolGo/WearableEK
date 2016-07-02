@@ -12,6 +12,8 @@
 #include "si7021.h"
 #include "gpiosManager.h"
 #include "device_utils.h"
+#include "rtcdrv.h"
+#include "em_rtc.h"
 #include "time_utils.h"
 
 
@@ -21,7 +23,8 @@
   Setting TOP to 27342 results in an overflow each 2 seconds
    */
 //#define TOP 27342
-#define TOP 1367
+//#define TOP 1367
+#define TOP 684
 
 
 
@@ -37,6 +40,29 @@
 /******************** interrupt function ******************/
 
 /******************** global function *********************/
+
+
+/**************************************************************************//**
+ * @brief  Delay function, does not depend on interrupts.
+ *****************************************************************************/
+void Delay2( uint32_t msec )
+{
+/* RTC frequency is LFXO divided by 32 (prescaler) */
+#define RTC_FREQ (32768 / 32)
+
+  RTC_IntDisable( RTC_IF_COMP0 );
+  RTC_IntClear( RTC_IF_COMP0 );
+  RTC_CompareSet( 0, (RTC_FREQ * msec ) / 1000 ); /* Calculate trigger value */
+
+  RTC_Enable( true );
+  while ( !( RTC_IntGet() & RTC_IF_COMP0 ) );     /* Wait for trigger */
+  RTC_Enable( false );
+}
+
+void Delay3(uint32_t delay) {
+	delay*=2000;
+	while (delay--);
+}
 
 
 /**************************************************************************//**
@@ -117,6 +143,16 @@ void Delay(uint32_t dlyTicks)
 }
 
 
+/**************************************************************************//**
+ * @brief SysTick_Disable
+ * Disable systick interrupts
+ *****************************************************************************/
+void SysTick_Disable(void)
+{
+  SysTick->CTRL = 0x0000000;
+}
+
+
 void startTimer()
 {
 	/* Enable overflow interrupt */
@@ -135,29 +171,3 @@ void stopTimer()
 	NVIC_DisableIRQ(TIMER0_IRQn);
 }
 
-
-void timer_WaitUs(uint8_t uDelay) {
-
-  /* adjustment factor for 14MHz oscillator, based on the timing of this whole function with speed optimization on, could probably be done in a prettier way. */
-
-  uint16_t cycle_delay = uDelay * 14 - 28;
-
-  /* Reset Timer */
-
-  TIMER_CounterSet(TIMER0, 0);
-
-  /* Start TIMER0 */
-
-  TIMER0->CMD = TIMER_CMD_START;
-
-  /* Wait until counter value is over top */
-
-  while(TIMER0->CNT < cycle_delay){
-
-  /* Do nothing, just wait */
-
-  }
-
-  TIMER0->CMD = TIMER_CMD_STOP;
-
-}

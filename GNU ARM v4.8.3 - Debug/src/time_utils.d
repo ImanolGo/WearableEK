@@ -52,6 +52,8 @@ src/time_utils.o: ../src/time_utils.c \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/gpiosManager.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/adp8866.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/device_utils.h \
+ /Applications/SimplicityStudio_v3/developer/sdks/efm32/v2/kits/common/drivers/rtcdrv.h \
+ /Applications/SimplicityStudio_v3/developer/sdks/efm32/v2/emlib/inc/em_rtc.h \
  /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/time_utils.h
 
 /Applications/SimplicityStudio_v3/developer/sdks/efm32/v2/emlib/inc/em_cmu.h:
@@ -159,5 +161,9 @@ src/time_utils.o: ../src/time_utils.c \
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/adp8866.h:
 
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/device_utils.h:
+
+/Applications/SimplicityStudio_v3/developer/sdks/efm32/v2/kits/common/drivers/rtcdrv.h:
+
+/Applications/SimplicityStudio_v3/developer/sdks/efm32/v2/emlib/inc/em_rtc.h:
 
 /Users/imanolgo/Google\ Drive/Freelancing/2016/Elektrocouture/R&D/WirelessCharger/software/WirelessChargerEK/inc/time_utils.h:

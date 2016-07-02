@@ -17,6 +17,55 @@
 #include "noise.h"
 #include "gpiosManager.h"
 
+
+void initGpios()
+{
+	/* Init variables */
+	s100On = false;
+	currentColor.h = 0; currentColor.s = 127; currentColor.v = 127;
+
+	/* Enable GPIO in CMU */
+	CMU_ClockEnable(cmuClock_GPIO, true);
+
+	/* Initialize GPIO interrupt dispatcher */
+	GPIOINT_Init();
+
+	/* Configure PC15*/
+	GPIO_PinModeSet(gpioPortC, SWITCH_PIN, gpioModeInput, 0); //Switch
+
+	GPIO_PinModeSet(gpioPortE, BATTERY_CHG_PIN, gpioModeInput, 1);  //BQ51050B CHG
+	GPIO_PinModeSet(gpioPortE, BQ51050B_CTRL_PIN, gpioModeWiredAnd, 1);  //BQ51050B CTRL open drain output
+
+	GPIO_PinModeSet(gpioPortD, ADP_INT_PIN, gpioModeInput, 1);  //ADP8866 nINT - Active Low
+	GPIO_PinModeSet(gpioPortD, MPU_INT_PIN, gpioModeInput, 1);  //MPU9250 nINT - Active Low
+
+	GPIO_PinModeSet(gpioPortD, ADP8866_NRST_PIN, gpioModePushPull , 0); // ADP8866 nRST
+	GPIO_PinModeSet(gpioPortE, BLE_RST_PIN, gpioModePushPull , 0); // BLE RESETn
+
+	//Delay(100);
+	//GPIO_PinOutSet(gpioPortD, 7); // Set to 1
+
+
+	/* Register callbacks before setting up and enabling pin interrupt. */
+	GPIOINT_CallbackRegister(SWITCH_PIN, gpioCallback);
+	GPIOINT_CallbackRegister(BATTERY_CHG_PIN, gpioCallback);
+	GPIOINT_CallbackRegister(ADP_INT_PIN, gpioCallback);
+	GPIOINT_CallbackRegister(MPU_INT_PIN, gpioCallback);
+
+	/* Set rising and falling edge interrupt for the port */
+	GPIO_IntConfig(gpioPortC, SWITCH_PIN, true, true, true);
+	GPIO_IntConfig(gpioPortE, BATTERY_CHG_PIN, true, true, true);
+	GPIO_IntConfig(gpioPortD, ADP_INT_PIN, true, true, true);
+	GPIO_IntConfig(gpioPortD, MPU_INT_PIN, true, true, true);
+
+	switchElapsedTime = 1000; //elapsed time in ms
+	switchTicks = msTicks;
+	switchOnOffDelay = 50;
+	switchPressed = false;
+	noiseTimer = 0.0;
+}
+
+
 void gpioCallback(uint8_t pin)
 {
 	if (pin == SWITCH_PIN)
@@ -26,11 +75,11 @@ void gpioCallback(uint8_t pin)
 	if(input==0){
 		switchPressed = true;
 		switchTicks = msTicks;
+		switchTogglePower();
 	}
 	else
 	{
 		switchPressed = false;
-		switchTogglePower();
 
 		if((msTicks - switchTicks)> SWITCH_RESTART_DELAY)
 		{
@@ -90,71 +139,32 @@ void updateColor()
 		currentColor.h = 0;
 	}
 
-	//currentColor.v = getNoise128(noiseTimer);
+	currentColor.v = getNoise128(noiseTimer);
 
 	RGB colorRGB = hsv2rgb(currentColor);
 	adp8866_set_led_rgb(LED_ID, &colorRGB);
-	noiseTimer = noiseTimer + 0.3;
+	noiseTimer = noiseTimer + 0.15;
+	if(noiseTimer<0.0){
+		noiseTimer = 0.0;
+	}
 
 }
-void initGpios()
-{
-	/* Init variables */
-	s100On = false;
-	currentColor.h = 0; currentColor.s = 0; currentColor.v = 127;
 
-	/* Enable GPIO in CMU */
-	CMU_ClockEnable(cmuClock_GPIO, true);
-
-	/* Initialize GPIO interrupt dispatcher */
-	GPIOINT_Init();
-
-	/* Configure PC15*/
-	GPIO_PinModeSet(gpioPortC, SWITCH_PIN, gpioModeInput, 0); //Switch
-
-	GPIO_PinModeSet(gpioPortE, BATTERY_CHG_PIN, gpioModeInput, 1);  //BQ51050B CHG
-	GPIO_PinModeSet(gpioPortE, BQ51050B_CTRL_PIN, gpioModeWiredAnd, 1);  //BQ51050B CTRL open drain output
-
-	GPIO_PinModeSet(gpioPortD, ADP_INT_PIN, gpioModeInput, 1);  //ADP8866 nINT - Active Low
-	GPIO_PinModeSet(gpioPortD, MPU_INT_PIN, gpioModeInput, 1);  //MPU9250 nINT - Active Low
-
-	GPIO_PinModeSet(gpioPortD, ADP8866_NRST_PIN, gpioModePushPull , 0); // ADP8866 nRST
-	GPIO_PinModeSet(gpioPortE, BLE_RST_PIN, gpioModePushPull , 0); // BLE RESETn
-
-	//Delay(100);
-	//GPIO_PinOutSet(gpioPortD, 7); // Set to 1
-
-
-	/* Register callbacks before setting up and enabling pin interrupt. */
-	GPIOINT_CallbackRegister(SWITCH_PIN, gpioCallback);
-	GPIOINT_CallbackRegister(BATTERY_CHG_PIN, gpioCallback);
-	GPIOINT_CallbackRegister(ADP_INT_PIN, gpioCallback);
-	GPIOINT_CallbackRegister(MPU_INT_PIN, gpioCallback);
-
-	/* Set rising and falling edge interrupt for the port */
-	GPIO_IntConfig(gpioPortC, SWITCH_PIN, true, true, true);
-	GPIO_IntConfig(gpioPortE, BATTERY_CHG_PIN, true, true, true);
-	GPIO_IntConfig(gpioPortD, ADP_INT_PIN, true, true, true);
-	GPIO_IntConfig(gpioPortD, MPU_INT_PIN, true, true, true);
-
-	switchElapsedTime = 1000; //elapsed time in ms
-	switchTicks = msTicks;
-	switchOnOffDelay = 50;
-	switchPressed = false;
-	noiseTimer = 0.0;
-}
 
 /**************************************************************************//**
  * @brief resets the modules
  *****************************************************************************/
 void resetModules()
 {
+	uint32_t delay = 200;
 	GPIO_PinOutClear(gpioPortD, ADP8866_NRST_PIN); // Set to 0
 	GPIO_PinOutClear(gpioPortE, BLE_RST_PIN); // Set to 0
-	Delay(200);
+	Delay3(delay);
 	GPIO_PinOutSet(gpioPortD, ADP8866_NRST_PIN); // Set to 1
 	GPIO_PinOutSet(gpioPortE, BLE_RST_PIN); // Set to 1
-	Delay(200);
+	Delay3(delay);
+
+	s100On = false;
 }
 
 

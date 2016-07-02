@@ -127,6 +127,7 @@ void showBatteryVoltage()
 
 void startDevice()
 {
+	initTime();
 	resetModules();
 	setupI2C();
 	testI2C();

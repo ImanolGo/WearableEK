@@ -144,7 +144,7 @@ static int allocate_perm(struct osn_context *ctx, int nperm, int ngrad)
 	return 0;
 }
 
-float fmap(float i, float imin, float imax, float omin, float omax)
+double dmap(double i, double imin, double imax, double omin, double omax)
 {
 	return ((i - imin)/(imax-imin)*(omax - omin) + omin);
 }
@@ -178,8 +178,8 @@ double getNoise1D(double x)
 
 uint8_t getNoise128(double x)
 {
-	float fnoise =  fmap(getNoise1D(x), -1.0,1.0,64.0,127.0);
-	return (uint8_t)fnoise;
+	double dnoise =  dmap(getNoise1D(x), -1.0,1.0,64.0,127.0);
+	return (uint8_t)dnoise;
 	//return (uint8_t) ((noise + 1) * 63.5) ;
 }
 

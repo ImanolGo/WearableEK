@@ -7,7 +7,7 @@
  */
 
 /******************** include files ***********************/
-#include "device_utils.h"
+#include "time_utils.h"
 #include "stc3105.h"
 #include "stc3115.h"
 #include "si7021.h"
@@ -84,7 +84,7 @@ void testI2C()
 	float temp = si7021_getTempCelsius();
 
 	int ledID = 2;
-	int delay = 500;
+	uint32_t delay = 500;
 
 	//GPIO_PinOutClear(gpioPortE, 12); // Set to 0
 	//Delay(5*delay);
@@ -94,15 +94,15 @@ void testI2C()
 
 	if(bConnection){
 		adp8866_set_led_red(ledID);
-		Delay(delay);
+		Delay3(delay);
 		adp8866_set_led_green(ledID);
-		Delay(delay);
+		Delay3(delay);
 		adp8866_set_led_blue(ledID);
-		Delay(delay);
+		Delay3(delay);
 	}
 	else{
 		adp8866_set_led_red(ledID);
-		Delay(delay);
+		Delay3(delay);
 	}
 
 	adp8866_set_all_black();

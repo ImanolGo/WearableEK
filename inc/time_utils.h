@@ -19,6 +19,9 @@
 void TIMER0_IRQHandler(void);
 
 
+void Delay3(uint32_t delay);
+
+void Delay2( uint32_t msec );
 
 volatile uint32_t msTicks; /* counts 1ms timeTicks */
 
@@ -31,7 +34,5 @@ void startTimer();
 void stopTimer();
 
 float elapsedTimeTempSensor;
-
-void timer_WaitUs(uint8_t uDelay);
 
 #endif /* TIME_UTILS_H_ */

@@ -45,7 +45,7 @@ bool initializeNoise();
 double getNoise1D(double x);
 uint8_t getNoise128(double x);
 
-float fmap(float i, float imin, float imax, float omin, float omax);
+double dmap(double i, double imin, double imax, double omin, double omax);
 
 int open_simplex_noise(int64_t seed, struct osn_context **ctx);
 void open_simplex_noise_free(struct osn_context *ctx);
