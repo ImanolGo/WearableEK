@@ -2,12 +2,9 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-A51_UPPER_SRCS := 
 S79_SRCS := 
 OBJ_SRCS := 
 S_SRCS := 
-SRC_UPPER_SRCS := 
-INC_UPPER_SRCS := 
 ASM_SRCS := 
 C_SRCS := 
 S_UPPER_SRCS := 
